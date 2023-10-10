@@ -1,0 +1,45 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+
+env:
+  CDK_VERSION: "2.100.0"
+  AWS_ACCOUNT_ID: "FROM_ENV"
+  AWS_REGION: "FROM_ENV"
+  NAME: "FROM_ENV"
+  DOMAIN_NAME: "FROM_ENV"
+  APPLICATION_TAG: "FROM_ENV"
+  ZONE_NAME: "FROM_ENV"
+  HOSTED_ZONE: "FROM_ENV"
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ vars.AWS_ASSUME_ROLE_ARN }}
+          role-session-name: github-action-role
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Bootstrap, Build & Synth
+        run: |
+          . _CI/bootstrap
+
+      - name: Deploy
+        run: |
+          . _CI/deploy
+        env:
+          SOURCE_PATH: "out"

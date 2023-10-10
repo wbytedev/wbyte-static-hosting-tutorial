@@ -1,0 +1,53 @@
+#!/bin/bash
+set -e
+
+if [[ -d "src" ]]; then
+    cd src
+
+    echo "Start bootstrapping src directory.."
+    if [[ -f "package.json" ]]; then
+        npm ci --include=dev
+
+        echo "Run prettier"
+        npm run prettier
+
+        echo "Lint code"
+        npm run lint
+
+        echo "Build"
+        npm run build
+
+        if [[ -d "out" ]]; then
+            cd out
+            export BUILD_PATH=$(pwd)
+            echo "BUILD_PATH='$(pwd)'" >>$GITHUB_ENV
+            cd ..
+
+            # Make sure CDK can find the build Next.JS project
+            cp -R ./out ../infra
+        fi
+    fi
+
+    cd ..
+fi
+
+if [[ -d "infra" ]]; then
+    cd infra
+
+    echo "Global install AWS CDK version ${CDK_VERSION}.."
+
+    npm i -g aws-cdk@${CDK_VERSION}
+    npm ci --include=dev
+
+    echo "Synthing infra.."
+
+    npm run cdk synth -- \
+        --context accountId=${AWS_ACCOUNT_ID} \
+        --context region=${AWS_REGION} \
+        --context name=${NAME} \
+        --context domainName=${DOMAIN_NAME} \
+        --context applicationTag=${APPLICATION_TAG} \
+        --context zoneName=${ZONE_NAME} \
+        --context hostedZone=${HOSTED_ZONE} \
+        --context sourcePath=${BUILD_PATH}
+fi
