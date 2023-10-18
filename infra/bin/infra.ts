@@ -10,7 +10,7 @@ const props = {
   name: app.node.tryGetContext("name"),
   domainName: app.node.tryGetContext("domainName"),
   applicationTag: app.node.tryGetContext("applicationTag"),
-  hostedZone: app.node.tryGetContext("hostedZone"),
+  hostedZoneName: app.node.tryGetContext("hostedZone"),
   sourcePath: app.node.tryGetContext("sourcePath"),
   env: {
     account: app.node.tryGetContext("accountId"),
@@ -38,4 +38,5 @@ const certificateStack = new CertificateStack(
 new InfraStack(app, props.applicationTag, {
   ...props,
   acmCertifcate: certificateStack.certificate,
+  hostedZone: certificateStack.hostedZone,
 });

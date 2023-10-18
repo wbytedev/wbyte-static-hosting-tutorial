@@ -10,7 +10,6 @@ if [[ -d "infra" ]]; then
         --context name=${NAME} \
         --context domainName=${DOMAIN_NAME} \
         --context applicationTag=${APPLICATION_TAG} \
-        --context zoneName=${ZONE_NAME} \
         --context hostedZone=${HOSTED_ZONE} \
         --context sourcePath=${SOURCE_PATH} \
         --all \

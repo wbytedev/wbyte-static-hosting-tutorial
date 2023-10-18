@@ -10,13 +10,12 @@ permissions:
 
 env:
   CDK_VERSION: "2.100.0"
-  AWS_ACCOUNT_ID: "FROM_ENV"
-  AWS_REGION: "FROM_ENV"
-  NAME: "FROM_ENV"
-  DOMAIN_NAME: "FROM_ENV"
-  APPLICATION_TAG: "FROM_ENV"
-  ZONE_NAME: "FROM_ENV"
-  HOSTED_ZONE: "FROM_ENV"
+  AWS_ACCOUNT_ID: ${{ env.AWS_ACCOUNT_ID }}
+  AWS_REGION: ${{ env.AWS_REGION }}
+  NAME: "hosting-tutorial"
+  DOMAIN_NAME: "hosting-tutorial.wbyte.dev"
+  APPLICATION_TAG: "wbyte-hosting-tutorial"
+  HOSTED_ZONE: "wbyte.dev"
 
 jobs:
   deploy:
@@ -30,9 +29,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ vars.AWS_ASSUME_ROLE_ARN }}
+          role-to-assume: ${{ env.AWS_ASSUME_ROLE_ARN }}
           role-session-name: github-action-role
-          aws-region: ${{ vars.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Bootstrap, Build & Synth
         run: |

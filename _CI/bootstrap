@@ -46,8 +46,6 @@ if [[ -d "infra" ]]; then
         --context region=${AWS_REGION} \
         --context name=${NAME} \
         --context domainName=${DOMAIN_NAME} \
-        --context applicationTag=${APPLICATION_TAG} \
-        --context zoneName=${ZONE_NAME} \
         --context hostedZone=${HOSTED_ZONE} \
         --context sourcePath=${BUILD_PATH}
 fi

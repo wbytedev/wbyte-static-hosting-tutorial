@@ -42,7 +42,6 @@ cdk synth \
      --context name={YOUR_STACK_NAME} \ 
      --context domainName={YOUR_DOMAIN_NAME} \
      --context applicationTag={YOUR_APPLICATION_TAG} \
-     --context zoneName={YOUR_ZONE_NAME} \
      --context hostedZone={YOUR_HOSTED_ZONE}
 ```
 
@@ -54,7 +53,6 @@ cdk deploy \
      --context name={YOUR_STACK_NAME} \ 
      --context domainName={YOUR_DOMAIN_NAME} \
      --context applicationTag={YOUR_APPLICATION_TAG} \
-     --context zoneName={YOUR_ZONE_NAME} \
      --context hostedZone={YOUR_HOSTED_ZONE} \
      --require-approval never
 ```
