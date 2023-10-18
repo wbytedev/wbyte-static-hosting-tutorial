@@ -12,7 +12,6 @@ import { Effect, PolicyStatement, ServicePrincipal } from "aws-cdk-lib/aws-iam";
 import {
   ARecord,
   AaaaRecord,
-  HostedZone,
   IHostedZone,
   RecordTarget,
 } from "aws-cdk-lib/aws-route53";

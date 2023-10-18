@@ -8,7 +8,7 @@ export const Footer: React.FC = () => {
         <li className="mx-3 hover">
           <a
             data-test="docs-btn-anchor"
-            href="https://github.com/wu-bacca"
+            href="https://github.com/wbytedev"
             target="_blank"
           >
             <Image
