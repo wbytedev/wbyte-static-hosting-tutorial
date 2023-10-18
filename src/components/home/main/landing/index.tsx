@@ -9,7 +9,7 @@ export const Landing: React.FC = () => {
           <h1 className="py-4 font-mono font-semi-bold text-4xl">
             Nicely done!
           </h1>
-          <p className="font-mono py-2 text-xl">You eiter read the tutorial or deployed it :-).</p>
+          <p className="font-mono py-2 text-xl">You either read the tutorial or deployed it :-).</p>
         </div>
         <div className="justify-center mx-auto">
           <Image
